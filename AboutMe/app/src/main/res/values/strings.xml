@@ -1,3 +1,25 @@
 <resources>
     <string name="app_name">About Me</string>
+    <string name="star_image_description">Yellow Star</string>
+    <string name="bio_text">
+        Hello,
+        My name is Mohamed Ashraf and i\'m a senior 2 sw engineering student,
+        i love reading especially about physics and nature.
+        my favourite animal is hamster and my hobby is problem solving.
+        EXPLORE
+        A Long Story
+        By James Bennet
+        APRIL 2010 ISSUE
+        SHARE
+        I HAVE SOME GOOD news. Next month, The Atlantic will once again send fiction home to our subscribers, in a special supplement that will accompany our May issue. On the newsstand, the supplement will be bound into the May magazine.
+
+        The short story has been integral to The Atlantic since our first issue, in 1857, in which we published four stories, including “The Mourning Veil,” by Harriet Beecher Stowe. But as longtime, generously loyal readers know, for the past five years we have published fiction once a year in a special newsstand issue, rather than in any of our 10 subscriber issues. During what has been widely noted to be a “challenging” (read: harrowing) business environment for publishing, this has been a necessary compromise. But none of us has been particularly happy with it, and we have been searching for ways to once again place great fiction in front of all our readers.
+
+        promo image
+        GET THE NEWS, WITHOUT THE NOISE.
+
+        Subscribe to The Atlantic Daily for our editors\' guide to what matters in the world.
+    </string>
+    <string name="Your_nickname">Your nickname?</string>
+    <string name="done">Done</string>
 </resources>
