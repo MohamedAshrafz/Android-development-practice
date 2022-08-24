@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--to allow using of data binding we wrap the screen in layout-->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="shoe"
+            type="com.udacity.shoestore.models.Shoe" />
+    </data>
+
+<!--using CardView for elevation and easier differentiation between items in the container layout-->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/shoeView_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/shoeView_padding">
+
+        <!--easier organization of the screen-->
+        <!--and to make the screen more concise and organize with other screens-->
+        <!--and allow the app to work normally in portrait mode-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/shoeView_padding">
+
+
+            <TextView
+                android:id="@+id/companyL_textView"
+                style="@style/addingShoeText_style"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/shoeView_padding"
+                android:layout_marginEnd="@dimen/shoeView_padding"
+                android:text="@{shoe.company}"
+                app:layout_constraintBaseline_toBaselineOf="@+id/shoeCompanyFixed_textView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/shoeCompanyFixed_textView"
+                tools:text="moewew" />
+
+            <TextView
+                android:id="@+id/shoeCompanyFixed_textView"
+                style="@style/addingShoeText_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@string/company_capital_text"
+                app:layout_constraintBaseline_toBaselineOf="@+id/nameL_textView"
+                app:layout_constraintStart_toStartOf="@+id/guideline" />
+
+            <TextView
+                android:id="@+id/shoeNameFixed_textView"
+                style="@style/addingShoeText_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/name_capital_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/nameL_textView"
+                style="@style/addingShoeText_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@{shoe.name}"
+                app:layout_constraintBaseline_toBaselineOf="@+id/shoeNameFixed_textView"
+                app:layout_constraintStart_toEndOf="@+id/shoeNameFixed_textView"
+                tools:text="moew" />
+
+            <TextView
+                android:id="@+id/shoeSizeFixed_textView"
+                style="@style/addingShoeText_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/size_capital_text"
+                app:layout_constraintStart_toStartOf="@+id/shoeNameFixed_textView"
+                app:layout_constraintTop_toBottomOf="@+id/shoeNameFixed_textView" />
+
+            <TextView
+                android:id="@+id/sizeL_textView"
+                style="@style/addingShoeText_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@{String.valueOf(shoe.size)}"
+                app:layout_constraintBaseline_toBaselineOf="@+id/shoeSizeFixed_textView"
+                app:layout_constraintStart_toEndOf="@+id/shoeSizeFixed_textView"
+                tools:text="25" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.45" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>

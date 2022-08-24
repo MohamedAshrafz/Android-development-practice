@@ -12,7 +12,10 @@
         tools:layout="@layout/fragment_title">
         <action
             android:id="@+id/action_titleFragment_to_gameFragment"
-            app:destination="@id/gameFragment" />
+            app:destination="@id/gameFragment"
+            app:enterAnim="@anim/slide_with_fading_in_right"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/gameFragment"
@@ -26,6 +29,7 @@
         <action
             android:id="@+id/action_gameFragment_to_gameOverFragment2"
             app:destination="@id/gameOverFragment"
+            app:enterAnim="@anim/fade_in"
             app:popUpTo="@id/gameFragment"
             app:popUpToInclusive="true" />
     </fragment>

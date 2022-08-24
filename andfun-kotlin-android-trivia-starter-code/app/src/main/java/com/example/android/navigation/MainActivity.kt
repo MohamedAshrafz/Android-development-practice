@@ -20,8 +20,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
+import androidx.navigation.*
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.example.android.navigation.databinding.ActivityMainBinding
@@ -32,7 +31,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        @Suppress("UNUSED_VARIABLE")
+        // @Suppress("UNUSED_VARIABLE")
         val binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
         val navController = this.findNavController(R.id.myNavHostFragment)
 
@@ -42,10 +41,21 @@ class MainActivity : AppCompatActivity() {
         // after adding appDrawer
         drawerLayout = binding.drawerLayout
         // do not know why this is here(has no usage in the code)
-        appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
+        // appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
 
         NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
         NavigationUI.setupWithNavController(binding.navView, navController)
+        
+        navController.addOnDestinationChangedListener { nc: NavController, nd: NavDestination, _: Bundle? ->
+            // if (nd.id == nc.graph.startDestination)
+            // disable the app drawer in gameFragment and enable it anywhere else
+            if (nd.id == nc.graph[R.id.gameFragment].id){
+                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+            }
+            else{
+                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+            }
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {

@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">Shoe Store</string>
+    <string name="email_text">Email</string>
+    <string name="password_text">Password</string>
+    <string name="sign_up_text">Sign up</string>
+    <string name="log_in_text">Log in</string>
+    <string name="your_email_text">your email</string>
+    <string name="your_password_text">your password</string>
+    <string name="welcome_text">Welcome In Shoe Store App</string>
+    <string name="welcomeLong_text">"Hi there welcome in the shoe store app,"\n"here you can add shoe and view them in organized way"</string>
+    <string name="instruction1_text">in the following screen you will see the list of all available shoe</string>
+    <string name="instruction2_text">you can add new shoe details by clicking on the adding floating button</string>
+    <string name="show_shoe_list_text">show shoe list</string>
+    <string name="instructionsTitle_text">Instructions</string>
+    <string name="next_text">Next</string>
+    <string name="scroll_view_for_showing_shoes_text">scrollViewForShowingShoes</string>
+    <string name="for_adding_a_new_shoe_text">for adding a new shoe</string>
+    <string name="shoe_description_text">Shoe description</string>
+    <string name="shoe_size_text">Shoe size</string>
+    <string name="shoe_company_text">Shoe company</string>
+    <string name="shoe_name_text">Shoe name</string>
+    <string name="name_text">name</string>
+    <string name="company_text">company</string>
+    <string name="size_text">size</string>
+    <string name="description_text">description</string>
+    <string name="company_capital_text">Company:</string>
+    <string name="name_capital_text">Name:</string>
+    <string name="size_capital_text">Size:</string>
+    <string name="logout_text">Logout</string>
+    <string name="cancel_text">Cancel</string>
+    <string name="add_text">Add</string>
+    <string name="save_text">Save</string>
+</resources>

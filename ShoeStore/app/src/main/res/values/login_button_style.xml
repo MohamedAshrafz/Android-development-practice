@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="login_button_style" parent="Widget.AppCompat.Button.Colored">
+        <item name="colorButtonNormal">@color/colorLightGreen</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="signup_button_style" parent="Widget.AppCompat.Button.Colored">
+        <item name="colorButtonNormal">@color/colorDarkGreen</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+</resources>
