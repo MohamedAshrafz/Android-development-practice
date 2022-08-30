@@ -3,7 +3,6 @@ package com.udacity.shoestore.screens.shoelist
 import android.os.Bundle
 import android.view.*
 import android.widget.Space
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -17,7 +16,7 @@ class ShoeListFragment : Fragment() {
 
     lateinit var binding: ShoelistFragmentBinding
 
-    companion object{
+    companion object {
         const val SPACING_MIN = 10 //10dp of spacing between each CardView
     }
 
@@ -40,16 +39,15 @@ class ShoeListFragment : Fragment() {
         // inflate every shoe as custom view into the linear layout
         mainActivityViewModel.shoeList.observe(viewLifecycleOwner, Observer { shoeList ->
             for (shoeItem in shoeList) {
-                val shoeViewBinding = DataBindingUtil.inflate<ShoeViewBinding>(
+                val shoeViewBinding = ShoeViewBinding.inflate(
                     inflater,
-                    R.layout.shoe_view,
-                    null,
+                    container,
                     false
                 )
 
                 // using data binding to display the details of each shoe
-                shoeViewBinding?.shoe = shoeItem
-                shoeViewBinding?.lifecycleOwner = this
+                shoeViewBinding.shoe = shoeItem
+                shoeViewBinding.lifecycleOwner = this
 
                 binding.shoeListLinearLayout.addView(shoeViewBinding.shoeViewLayout)
 

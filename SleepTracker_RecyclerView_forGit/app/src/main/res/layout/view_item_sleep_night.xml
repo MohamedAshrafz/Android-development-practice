@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="sleepNight"
+            type="com.example.android.trackmysleepquality.database.SleepNight" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/sleepQuality_imageView"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginStart="@dimen/outer_margin"
+            android:layout_marginTop="@dimen/outer_margin"
+            android:layout_marginBottom="@dimen/outer_margin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:sleepNightQualityImage="@{sleepNight}"
+            tools:srcCompat="@drawable/ic_sleep_5" />
+
+        <TextView
+            android:id="@+id/sleepLength_textView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/inner_margin"
+            android:layout_marginTop="@dimen/inner_margin"
+            android:layout_marginEnd="@dimen/outer_margin"
+            android:layout_marginBottom="@dimen/inner_margin"
+            android:text="@string/wednesday"
+            app:layout_constraintBottom_toTopOf="@+id/sleepQuality_textView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/sleepQuality_imageView"
+            app:layout_constraintTop_toTopOf="@+id/sleepQuality_imageView"
+            app:sleepNightLengthFormatted="@{sleepNight}" />
+
+        <TextView
+            android:id="@+id/sleepQuality_textView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/inner_margin"
+            android:layout_marginEnd="@dimen/outer_margin"
+            android:layout_marginBottom="@dimen/inner_margin"
+            android:text="@string/five_excellent"
+            app:layout_constraintBottom_toBottomOf="@+id/sleepQuality_imageView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/sleepQuality_imageView"
+            app:sleepNightQualityString="@{sleepNight}" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
