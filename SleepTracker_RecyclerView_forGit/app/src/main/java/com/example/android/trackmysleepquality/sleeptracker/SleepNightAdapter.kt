@@ -25,7 +25,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.android.trackmysleepquality.R
 import com.example.android.trackmysleepquality.database.SleepNight
 import com.example.android.trackmysleepquality.databinding.ViewGridItemSleepNightBinding
-import com.example.android.trackmysleepquality.databinding.ViewItemSleepNightBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -61,7 +60,7 @@ class SleepNightAdapter(private val clickListener: SleepNightListener) :
         }
     }
 
-    class ViewHolder private constructor(private val binding: ViewItemSleepNightBinding) :
+    class ViewHolder private constructor(private val binding: ViewGridItemSleepNightBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: SleepNight, clickListener: SleepNightListener) {
@@ -76,7 +75,7 @@ class SleepNightAdapter(private val clickListener: SleepNightListener) :
                 // the initializing of the binding object happen here and only here
                 // any other referencing to it is coming from here too
                 val binding =
-                    ViewItemSleepNightBinding.inflate(layoutInflater, parent, false)
+                    ViewGridItemSleepNightBinding.inflate(layoutInflater, parent, false)
                 // return the binding object to the class
                 return ViewHolder(binding)
             }
