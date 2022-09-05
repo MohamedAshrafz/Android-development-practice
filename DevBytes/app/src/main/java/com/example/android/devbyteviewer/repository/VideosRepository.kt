@@ -16,3 +16,35 @@
  */
 
 package com.example.android.devbyteviewer.repository
+
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
+import com.example.android.devbyteviewer.database.VideoDao
+import com.example.android.devbyteviewer.database.asDatabaseModel
+import com.example.android.devbyteviewer.database.asDomainModel
+import com.example.android.devbyteviewer.domain.Video
+import com.example.android.devbyteviewer.network.Network
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import timber.log.Timber
+
+class VideosRepository(private val database: VideoDao) {
+
+    // here we transform from one kind of LiveData(List<DatabaseVideo>) to another kind of LiveData(List<Video>)
+    val videos: LiveData<List<Video>> = Transformations.map(database.getVideos()) {
+        it.asDomainModel()
+    }
+
+    suspend fun refreshVideos() {
+        withContext(Dispatchers.IO) {
+            // handling if there is no internet connection
+            // will not crash
+            try {
+                val playlist = Network.devbytes.getPlaylist().await()
+                database.insertAll(*playlist.asDatabaseModel()) // * is the spread operator in kotlin
+            } catch (e: Exception) {
+                Timber.i("no internet connection\t%s", e.message)
+            }
+        }
+    }
+}

@@ -19,9 +19,11 @@ package com.example.android.marsrealestate.network
 
 import android.os.Parcelable
 import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
+@JsonClass(generateAdapter = true) // was not there but i found it in the next project that's why i added it
 data class MarsProperty(
     @Json(name = "id")
     val id: String,

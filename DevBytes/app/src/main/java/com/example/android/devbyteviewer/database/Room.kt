@@ -33,7 +33,7 @@ interface VideoDao {
 @Database(entities = [DatabaseVideo::class], version = 1)
 abstract class VideoDatabase : RoomDatabase() {
 
-    abstract val VideoDatabase: VideoDao
+    abstract val videoDao: VideoDao
 
     companion object {
 
