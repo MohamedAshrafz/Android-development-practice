@@ -1,0 +1,56 @@
+<!--?xml version="1.0" encoding="UTF-8"?-->
+
+<resources>
+  <color name="primaryColor">#ff7b00</color>
+  <color name="primaryLightColor">#ffac42</color>
+  <color name="primaryDarkColor">#c54c00</color>
+  <color name="secondaryColor">#ffaa00</color>
+  <color name="secondaryLightColor">#ffdc4a</color>
+  <color name="secondaryDarkColor">#c67b00</color>
+  <color name="primaryTextColor">#000000</color>
+  <color name="secondaryTextColor">#000000</color>
+</resources>
+
+<!--<resources>-->
+<!--  <color name="primaryColor">#000000</color>-->
+<!--  <color name="primaryLightColor">#2c2c2c</color>-->
+<!--  <color name="primaryDarkColor">#000000</color>-->
+<!--  <color name="secondaryColor">#5b5b5b</color>-->
+<!--  <color name="secondaryLightColor">#888888</color>-->
+<!--  <color name="secondaryDarkColor">#323232</color>-->
+<!--  <color name="primaryTextColor">#ffffff</color>-->
+<!--  <color name="secondaryTextColor">#ffffff</color>-->
+<!--</resources>-->
+
+<!--<resources>-->
+<!--  <color name="primaryColor">#057af0</color>-->
+<!--  <color name="primaryLightColor">#66a8ff</color>-->
+<!--  <color name="primaryDarkColor">#004fbd</color>-->
+<!--  <color name="secondaryColor">#001d52</color>-->
+<!--  <color name="secondaryLightColor">#39437f</color>-->
+<!--  <color name="secondaryDarkColor">#00002a</color>-->
+<!--  <color name="primaryTextColor">#000000</color>-->
+<!--  <color name="secondaryTextColor">#ffffff</color>-->
+<!--</resources>-->
+
+<!--<resources>-->
+<!--  <color name="primaryColor">#9c6644</color>-->
+<!--  <color name="primaryLightColor">#cf9470</color>-->
+<!--  <color name="primaryDarkColor">#6b3b1c</color>-->
+<!--  <color name="secondaryColor">#ddb892</color>-->
+<!--  <color name="secondaryLightColor">#ffeac3</color>-->
+<!--  <color name="secondaryDarkColor">#aa8864</color>-->
+<!--  <color name="primaryTextColor">#ffffff</color>-->
+<!--  <color name="secondaryTextColor">#000000</color>-->
+<!--</resources>-->
+
+<!--<resources>-->
+<!--  <color name="primaryColor">#8900a5</color>-->
+<!--  <color name="primaryLightColor">#bd47d7</color>-->
+<!--  <color name="primaryDarkColor">#570075</color>-->
+<!--  <color name="secondaryColor">#48d100</color>-->
+<!--  <color name="secondaryLightColor">#84ff4d</color>-->
+<!--  <color name="secondaryDarkColor">#009f00</color>-->
+<!--  <color name="primaryTextColor">#ffffff</color>-->
+<!--  <color name="secondaryTextColor">#000000</color>-->
+<!--</resources>-->
