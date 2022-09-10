@@ -50,7 +50,7 @@ fun List<DatabaseVideo>.asDomainModel(): List<Video> {
 fun NetworkVideoContainer.asDatabaseModel(): Array<DatabaseVideo> {
     // applying the map function to the parameter of the NetworkVideoContainer
     // (map only can be applied to a list or any collection in general)
-    // the resulting then transformed to an array using toTypedArray
+    // the resulting then transformed to an array using toTypedArray to be apple to use spread operator
     return videos.map {
         DatabaseVideo(
             url = it.url,

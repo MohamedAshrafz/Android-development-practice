@@ -17,6 +17,7 @@ fun parseAsteroidsJsonResult(jsonResult: JSONObject): ArrayList<Asteroid> {
         if (nearEarthObjectsJson.has(formattedDate)) {
             val dateAsteroidJsonArray = nearEarthObjectsJson.getJSONArray(formattedDate)
 
+            // for every day there exist multiple asteroids get them all using this for loop
             for (i in 0 until dateAsteroidJsonArray.length()) {
                 val asteroidJson = dateAsteroidJsonArray.getJSONObject(i)
                 val id = asteroidJson.getLong("id")
@@ -43,6 +44,23 @@ fun parseAsteroidsJsonResult(jsonResult: JSONObject): ArrayList<Asteroid> {
 
     return asteroidList
 }
+
+//fun main() {
+//    val formattedDateList = ArrayList<String>()
+//
+//    val calendar = Calendar.getInstance()
+//    for (i in 0..Constants.DEFAULT_END_DATE_DAYS) {
+//        val currentTime = calendar.time
+//        val dateFormat = SimpleDateFormat(Constants.API_QUERY_DATE_FORMAT, Locale.getDefault())
+//
+//        println(dateFormat.format(currentTime))
+//        formattedDateList.add(dateFormat.format(currentTime))
+//
+//        calendar.add(Calendar.DAY_OF_YEAR, 1)
+//        println(calendar)
+//    }
+//    println(formattedDateList.toString())
+//}
 
 private fun getNextSevenDaysFormattedDates(): ArrayList<String> {
     val formattedDateList = ArrayList<String>()
