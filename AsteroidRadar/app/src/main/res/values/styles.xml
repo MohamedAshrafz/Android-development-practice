@@ -11,6 +11,7 @@
     <style name="normalText_style">
         <item name="android:textColor">@color/default_text_color</item>
         <item name="android:textSize">18sp</item>
+        <item name="fontFamily">@font/roboto</item>
     </style>
 
 </resources>

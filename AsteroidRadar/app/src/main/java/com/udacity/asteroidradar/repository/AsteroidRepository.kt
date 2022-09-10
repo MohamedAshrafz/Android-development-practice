@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.udacity.asteroidradar.Asteroid
+import com.udacity.asteroidradar.PictureOfDay
 import com.udacity.asteroidradar.api.parseAsteroidsJsonResult
 import com.udacity.asteroidradar.database.AsteroidDao
 import com.udacity.asteroidradar.database.DatabaseAsteroid
@@ -21,6 +22,7 @@ enum class AsteroidSelection {
 
 class AsteroidRepository(private val database: AsteroidDao) {
 
+    val pictureOfTheDay = MutableLiveData<PictureOfDay>()
     var asteroids = MutableLiveData<LiveData<List<Asteroid>>>()
 
     private suspend fun refreshAsteroids() {
@@ -35,7 +37,6 @@ class AsteroidRepository(private val database: AsteroidDao) {
             } catch (e: Exception) {
                 Timber.i("no internet connection ${e.message}")
             }
-            database.deletePreviousDays()
         }
     }
 
@@ -53,6 +54,24 @@ class AsteroidRepository(private val database: AsteroidDao) {
                     else -> database.getWeekAsteroids()
                 }
             return@withContext Transformations.map(databaseAsteroidList) { it.asDomainModel() }
+        }
+    }
+
+    suspend fun getPictureOfTheDay() {
+        pictureOfTheDay.value = withContext(Dispatchers.IO) {
+
+            try {
+                return@withContext Network.NetworkService.getImageOfTheDay()
+            } catch (e: Exception) {
+                Timber.i("no internet connection ${e.message}")
+                return@withContext null
+            }
+        }
+    }
+
+    suspend fun deleteOldDaysFromDatabase() {
+        withContext(Dispatchers.IO) {
+            database.deletePreviousDays()
         }
     }
 

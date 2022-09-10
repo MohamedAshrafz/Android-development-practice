@@ -32,7 +32,7 @@ import java.util.concurrent.TimeUnit
  */
 class DevByteApplication : Application() {
 
-    val appCoroutineScope = CoroutineScope(Dispatchers.Default)
+    private val appCoroutineScope = CoroutineScope(Dispatchers.Default)
 
     /**
      * onCreate is called before the first screen is shown to the user.

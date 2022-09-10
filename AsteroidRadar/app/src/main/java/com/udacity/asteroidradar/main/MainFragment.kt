@@ -41,6 +41,17 @@ class MainFragment : Fragment() {
             }
         })
 
+        viewModel.loadingStatus.observe(viewLifecycleOwner, Observer { status ->
+            when (status) {
+                MainViewModel.LoadingStatusEnum.LOADING -> {
+                    binding.statusLoadingWheel.visibility = View.VISIBLE
+                }
+                else -> {
+                    binding.statusLoadingWheel.visibility = View.GONE
+                }
+            }
+        })
+
         setHasOptionsMenu(true)
 
         return binding.root
