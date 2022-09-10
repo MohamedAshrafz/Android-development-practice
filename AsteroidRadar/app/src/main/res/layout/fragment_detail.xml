@@ -42,6 +42,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:focusable="auto"
+                    android:focusableInTouchMode="true"
                     android:orientation="vertical">
 
                     <TextView
@@ -66,6 +68,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/layout_spacing"
+                    android:focusableInTouchMode="true"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
@@ -107,6 +110,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/layout_spacing"
+                    android:focusableInTouchMode="true"
                     android:orientation="vertical">
 
                     <TextView
@@ -131,6 +135,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/layout_spacing"
+                    android:focusableInTouchMode="true"
                     android:orientation="vertical">
 
                     <TextView
@@ -156,6 +161,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/layout_spacing"
+                    android:focusableInTouchMode="true"
                     android:orientation="vertical">
 
                     <TextView

@@ -30,7 +30,6 @@ class MainViewModel(application: Application) : ViewModel() {
     val pictureOfTheDay: LiveData<PictureOfDay>
         get() = _pictureOfTheDay
 
-
     private val _loadingStatus = MutableLiveData<LoadingStatusEnum>()
     val loadingStatus: LiveData<LoadingStatusEnum>
         get() = _loadingStatus
