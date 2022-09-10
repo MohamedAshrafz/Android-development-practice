@@ -4,22 +4,28 @@ package com.udacity.asteroidradar.database
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.udacity.asteroidradar.Constants
-import java.text.SimpleDateFormat
-import java.util.*
-
+import com.udacity.asteroidradar.DateUtils
 
 
 @Dao
 interface AsteroidDao {
-    @Query("SELECT * FROM asteroids_table WHERE closeApproachDate > :todayDate")
-    fun getWeekAsteroids(todayDate: String): LiveData<List<DatabaseAsteroid>>
+    @Query("SELECT * FROM asteroids_table WHERE closeApproachDate >= :todayDate ORDER BY closeApproachDate")
+    fun getWeekAsteroids(todayDate: String = DateUtils.getToday()): LiveData<List<DatabaseAsteroid>>
 
-    @Query("SELECT * FROM asteroids_table WHERE closeApproachDate = :todayDate")
-    fun getTodayAsteroids(todayDate: String): LiveData<List<DatabaseAsteroid>>
+    @Query("DELETE FROM asteroids_table WHERE closeApproachDate < :todayDate")
+    fun deletePreviousDays(todayDate: String = DateUtils.getToday())
 
-    @Query("SELECT * FROM asteroids_table")
+//    @Query("SELECT * FROM asteroids_table WHERE closeApproachDate in (:nextWeekDays)")
+//    fun getNextWeekAsteroids(nextWeekDays: List<String> = getNextSevenDaysFormattedDates()): LiveData<List<DatabaseAsteroid>>
+
+    @Query("SELECT * FROM asteroids_table WHERE closeApproachDate = :todayDate ORDER BY closeApproachDate")
+    fun getTodayAsteroids(todayDate: String = DateUtils.getToday()): LiveData<List<DatabaseAsteroid>>
+
+    @Query("SELECT * FROM asteroids_table ORDER BY closeApproachDate")
     fun getAllAsteroids(): LiveData<List<DatabaseAsteroid>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(vararg asteroids: DatabaseAsteroid)
 }
 
 @Database(entities = [DatabaseAsteroid::class], version = 1, exportSchema = false)
@@ -50,18 +56,4 @@ abstract class AsteroidDatabase : RoomDatabase() {
             }
         }
     }
-}
-
-fun main() {
-    getToday()
-}
-
-fun getToday(): String {
-
-    val currentTime = Calendar.getInstance().time
-    val dateFormat = SimpleDateFormat(Constants.API_QUERY_DATE_FORMAT, Locale.getDefault())
-
-    // returns todayFormatted
-    println(dateFormat.format(currentTime))
-    return dateFormat.format(currentTime)
 }

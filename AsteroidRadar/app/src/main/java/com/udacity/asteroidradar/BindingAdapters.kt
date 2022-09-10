@@ -3,6 +3,16 @@ package com.udacity.asteroidradar
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
+import com.udacity.asteroidradar.main.AsteroidRecyclerViewAdaptor
+
+@BindingAdapter("asteroidsList")
+// take special care of the nullable list here
+fun bindAsteroidsList(recyclerView: RecyclerView, list: List<Asteroid>?){
+
+    val adapter = recyclerView.adapter as AsteroidRecyclerViewAdaptor
+    adapter.submitList(list)
+}
 
 @BindingAdapter("statusIcon")
 fun ImageView.bindAsteroidStatusImage(isHazardous: Boolean) {

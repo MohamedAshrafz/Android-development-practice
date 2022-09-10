@@ -29,7 +29,7 @@ import com.example.android.marsrealestate.overview.MarsApiStatus
 import com.example.android.marsrealestate.overview.PhotoGridAdapter
 
 @BindingAdapter("listData")
-fun bindRecyclerView(recyclerView: RecyclerView, list: List<MarsProperty>?) {
+fun bindRecyclerViewWithList(recyclerView: RecyclerView, list: List<MarsProperty>?) {
 
     // not like in the lesson (in the lesson he set the adaptor of the recycler view in the fragment)
     // recyclerView.adapter = PhotoGridAdapter()

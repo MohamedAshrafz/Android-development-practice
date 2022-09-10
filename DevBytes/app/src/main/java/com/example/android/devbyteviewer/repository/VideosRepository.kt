@@ -40,7 +40,7 @@ class VideosRepository(private val database: VideoDao) {
             // handling if there is no internet connection
             // will not crash
             try {
-                val playlist = Network.devbytes.getPlaylist().await()
+                val playlist = Network.devbytes.getPlaylist()
                 database.insertAll(*playlist.asDatabaseModel()) // * is the spread operator in kotlin
             } catch (e: Exception) {
                 Timber.i("no internet connection\t%s", e.message)
