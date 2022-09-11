@@ -25,7 +25,7 @@ class AsteroidRepository(private val database: AsteroidDao) {
     val pictureOfTheDay = MutableLiveData<PictureOfDay>()
     var asteroids = MutableLiveData<LiveData<List<Asteroid>>>()
 
-    private suspend fun refreshAsteroids() {
+    suspend fun refreshAsteroids() {
         withContext(Dispatchers.IO) {
             try {
                 // getting the asteroids from the internet
@@ -41,7 +41,6 @@ class AsteroidRepository(private val database: AsteroidDao) {
     }
 
     suspend fun getAsteroidsFromPeriod(selection: AsteroidSelection) {
-        refreshAsteroids()
 
         asteroids.value = withContext(Dispatchers.IO) {
 

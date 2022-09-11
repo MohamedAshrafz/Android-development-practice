@@ -50,9 +50,10 @@ class MainViewModel(application: Application) : ViewModel() {
     init {
         _loadingStatus.value = LoadingStatusEnum.LOADING
         viewModelScope.launch {
-            repository.getPictureOfTheDay()
             repository.getAsteroidsFromPeriod(AsteroidSelection.WEEK)
+            repository.refreshAsteroids()
             _loadingStatus.value = LoadingStatusEnum.COMPLETE
+            repository.getPictureOfTheDay()
         }
     }
 
