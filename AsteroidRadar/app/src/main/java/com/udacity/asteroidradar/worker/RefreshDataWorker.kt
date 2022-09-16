@@ -20,7 +20,7 @@ class RefreshDataWorker(appContext: Context, parameters: WorkerParameters) :
         val repository = AsteroidRepository(database)
 
         return try {
-            repository.getAsteroidsFromPeriod(AsteroidSelection.WEEK)
+            repository.refreshAsteroids()
             repository.deleteOldDaysFromDatabase()
 
             Result.success()

@@ -9,6 +9,7 @@ import androidx.navigation.findNavController
 import com.udacity.asteroidradar.R
 import com.udacity.asteroidradar.databinding.FragmentMainBinding
 import com.udacity.asteroidradar.repository.AsteroidSelection
+import com.udacity.asteroidradar.repository.LoadingStatus
 
 class MainFragment : Fragment() {
 
@@ -43,7 +44,7 @@ class MainFragment : Fragment() {
 
         viewModel.loadingStatus.observe(viewLifecycleOwner, Observer { status ->
             when (status) {
-                MainViewModel.LoadingStatusEnum.LOADING -> {
+                LoadingStatus.LOADING -> {
                     binding.statusLoadingWheel.visibility = View.VISIBLE
                 }
                 else -> {
@@ -63,11 +64,19 @@ class MainFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.show_all_menuItem -> viewModel.selectFilter(AsteroidSelection.ALL)
-            R.id.show_today_menuItem -> viewModel.selectFilter(AsteroidSelection.TODAY)
-            else -> viewModel.selectFilter(AsteroidSelection.WEEK)
+
+        val selectedFilter: AsteroidSelection = when (item.itemId) {
+            R.id.show_all_menuItem -> {
+                AsteroidSelection.ALL
+            }
+            R.id.show_today_menuItem -> {
+                AsteroidSelection.TODAY
+            }
+            else -> {
+                AsteroidSelection.WEEK
+            }
         }
+        viewModel.selectFilter(selectedFilter)
         return true
     }
 }

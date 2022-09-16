@@ -10,32 +10,26 @@ import com.udacity.asteroidradar.PictureOfDay
 import com.udacity.asteroidradar.database.AsteroidDatabase
 import com.udacity.asteroidradar.repository.AsteroidRepository
 import com.udacity.asteroidradar.repository.AsteroidSelection
+import com.udacity.asteroidradar.repository.LoadingStatus
 import kotlinx.coroutines.launch
 
 class MainViewModel(application: Application) : ViewModel() {
 
-    enum class LoadingStatusEnum {
-        LOADING, COMPLETE
-    }
-
     private val database = AsteroidDatabase.getInstance(application).asteroidDao
     private val repository = AsteroidRepository(database)
 
-
     private val _asteroids = repository.asteroids
-    val asteroids: MutableLiveData<LiveData<List<Asteroid>>>
+    val asteroids: LiveData<List<Asteroid>>
         get() = _asteroids
 
-    private val _pictureOfTheDay = repository.pictureOfTheDay
-    val pictureOfTheDay: LiveData<PictureOfDay>
+    private val _pictureOfTheDay: LiveData<PictureOfDay?> = repository.pictureOfTheDay
+    val pictureOfTheDay: LiveData<PictureOfDay?>
         get() = _pictureOfTheDay
 
-    private val _loadingStatus = MutableLiveData<LoadingStatusEnum>()
-    val loadingStatus: LiveData<LoadingStatusEnum>
-        get() = _loadingStatus
+    val loadingStatus: LiveData<LoadingStatus> = repository.loadingStatus
 
-    private val _selectedAsteroid = MutableLiveData<Asteroid>(null)
-    val selectedAsteroid: LiveData<Asteroid>
+    private val _selectedAsteroid = MutableLiveData<Asteroid?>()
+    val selectedAsteroid: LiveData<Asteroid?>
         get() = _selectedAsteroid
 
     fun onSelectAsteroid(asteroid: Asteroid) {
@@ -48,20 +42,15 @@ class MainViewModel(application: Application) : ViewModel() {
 
 
     init {
-        _loadingStatus.value = LoadingStatusEnum.LOADING
         viewModelScope.launch {
-            repository.getAsteroidsFromPeriod(AsteroidSelection.WEEK)
+            repository.setSelector(AsteroidSelection.WEEK)
             repository.refreshAsteroids()
-            _loadingStatus.value = LoadingStatusEnum.COMPLETE
-            repository.getPictureOfTheDay()
         }
     }
 
     fun selectFilter(selection: AsteroidSelection) {
-        _loadingStatus.value = LoadingStatusEnum.LOADING
         viewModelScope.launch {
-            repository.getAsteroidsFromPeriod(selection)
-            _loadingStatus.value = LoadingStatusEnum.COMPLETE
+            repository.setSelector(selection)
         }
     }
 

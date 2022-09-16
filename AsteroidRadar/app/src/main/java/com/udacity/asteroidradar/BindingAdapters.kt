@@ -18,22 +18,26 @@ fun bindAsteroidsList(recyclerView: RecyclerView, list: List<Asteroid>?) {
 
 @BindingAdapter("setDayPicture")
 fun bindPictureOfDay(imageView: ImageView, pictureOfDay: PictureOfDay?) {
-    val imageUrl = pictureOfDay?.url
-    imageUrl?.let {
+    if (pictureOfDay == null) {
+        imageView.contentDescription =
+            imageView.context.getString(R.string.this_is_nasa_s_picture_of_day_showing_nothing_yet)
+        return
+    }
+    if (pictureOfDay.mediaType != "image") {
+        return
+    }
+
+    val imageUrl = pictureOfDay.url
+    imageUrl.let {
         val imgUri = imageUrl.toUri().buildUpon().scheme("https").build()
         Picasso.with(imageView.context)
             .load(imgUri)
             .placeholder(R.drawable.placeholder_picture_of_day)
-            .error(R.drawable.asteroid_hazardous)
+            .error(R.drawable.placeholder_picture_of_day)
             .into(imageView)
     }
-    if (pictureOfDay != null) {
-        imageView.contentDescription =
-            imageView.context.getString(R.string.image_of_the_day) + " " + pictureOfDay.title
-    } else {
-        imageView.contentDescription =
-            imageView.context.getString(R.string.this_is_nasa_s_picture_of_day_showing_nothing_yet)
-    }
+    imageView.contentDescription =
+        imageView.context.getString(R.string.image_of_the_day) + " " + pictureOfDay.title
 }
 
 @BindingAdapter("setPictureTitle")

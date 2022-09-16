@@ -1,13 +1,10 @@
 package com.udacity.asteroidradar.repository
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.*
 import com.udacity.asteroidradar.Asteroid
 import com.udacity.asteroidradar.PictureOfDay
 import com.udacity.asteroidradar.api.parseAsteroidsJsonResult
 import com.udacity.asteroidradar.database.AsteroidDao
-import com.udacity.asteroidradar.database.DatabaseAsteroid
 import com.udacity.asteroidradar.database.asDatabaseModel
 import com.udacity.asteroidradar.database.asDomainModel
 import com.udacity.asteroidradar.network.Network
@@ -20,13 +17,44 @@ enum class AsteroidSelection {
     WEEK, TODAY, ALL
 }
 
+enum class LoadingStatus {
+    LOADING, COMPLETE
+}
+
+
 class AsteroidRepository(private val database: AsteroidDao) {
 
-    val pictureOfTheDay = MutableLiveData<PictureOfDay>()
-    var asteroids = MutableLiveData<LiveData<List<Asteroid>>>()
+    private val selector = MutableLiveData<AsteroidSelection>()
+
+    fun setSelector(selection: AsteroidSelection) {
+        selector.value = selection
+    }
+
+
+    val asteroids: LiveData<List<Asteroid>> = selector.switchMap { selector ->
+        liveData(context = Dispatchers.IO) {
+            _loadingStatus.postValue(LoadingStatus.LOADING)
+            emitSource(getAsteroidsFromPeriod(selector))
+            _loadingStatus.postValue(LoadingStatus.COMPLETE)
+        }
+    }
+
+    private val _loadingStatus = MutableLiveData<LoadingStatus>(LoadingStatus.LOADING)
+    val loadingStatus: LiveData<LoadingStatus>
+        get() = _loadingStatus
+
+    val pictureOfTheDay: LiveData<PictureOfDay?> = liveData(context = Dispatchers.IO) {
+        try {
+            emit(Network.NetworkService.getImageOfTheDay())
+        } catch (e: Exception) {
+            Timber.i("no internet connection ${e.message}")
+            emit(null)
+        }
+    }
 
     suspend fun refreshAsteroids() {
         withContext(Dispatchers.IO) {
+            _loadingStatus.postValue(LoadingStatus.LOADING)
             try {
                 // getting the asteroids from the internet
                 val asteroidsList =
@@ -40,32 +68,15 @@ class AsteroidRepository(private val database: AsteroidDao) {
         }
     }
 
-    suspend fun getAsteroidsFromPeriod(selection: AsteroidSelection) {
+    private fun getAsteroidsFromPeriod(selection: AsteroidSelection): LiveData<List<Asteroid>> {
 
-        asteroids.value = withContext(Dispatchers.IO) {
+        return when (selection) {
+            AsteroidSelection.ALL -> database.getAllAsteroids()
 
-            val databaseAsteroidList: LiveData<List<DatabaseAsteroid>> =
-                when (selection) {
-                    AsteroidSelection.ALL -> database.getAllAsteroids()
+            AsteroidSelection.TODAY -> database.getTodayAsteroids()
 
-                    AsteroidSelection.TODAY -> database.getTodayAsteroids()
-
-                    else -> database.getWeekAsteroids()
-                }
-            return@withContext Transformations.map(databaseAsteroidList) { it.asDomainModel() }
-        }
-    }
-
-    suspend fun getPictureOfTheDay() {
-        pictureOfTheDay.value = withContext(Dispatchers.IO) {
-
-            try {
-                return@withContext Network.NetworkService.getImageOfTheDay()
-            } catch (e: Exception) {
-                Timber.i("no internet connection ${e.message}")
-                return@withContext null
-            }
-        }
+            else -> database.getWeekAsteroids()
+        }.map { it.asDomainModel() }
     }
 
     suspend fun deleteOldDaysFromDatabase() {
