@@ -117,7 +117,19 @@ class DialView @JvmOverloads constructor(
         }
 
         // drawing the dial
-        canvas.drawCircle((width / 2).toFloat(), (height / 2).toFloat(), radius, paint)
+        // canvas.drawCircle((width / 2).toFloat(), (height / 2).toFloat(), radius, paint)
+        val pivotX = (width / 2).toFloat()
+        val pivotY = (height / 2).toFloat()
+        canvas.drawArc(
+            pivotX - radius,
+            pivotY - radius,
+            pivotX + radius,
+            pivotY + radius,
+            0f,
+            350f,
+            true,
+            paint
+        )
 
         // drawing the indicator
         var markerRadius = radius + RADIUS_OFFSET_INDICATOR

@@ -29,7 +29,7 @@ class MyCanvasView @JvmOverloads constructor(
 
     private val paint = Paint().apply {
         color = paintColor
-        //isAntiAlias = true
+        isAntiAlias = true
 
         isDither = true
 
