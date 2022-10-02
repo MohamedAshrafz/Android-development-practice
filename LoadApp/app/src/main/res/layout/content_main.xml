@@ -19,9 +19,12 @@
         android:layout_marginEnd="@dimen/default_margin"
         android:layout_marginBottom="@dimen/default_margin"
         android:background="@color/colorPrimary"
+        app:backgroundInnerColor="@color/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:pieColor="@color/colorAccent"
+        app:textColor="@color/white" />
 
     <RadioGroup
         android:id="@+id/radioGroup"

@@ -1,7 +1,10 @@
 package com.udacity
 
 import android.content.Context
-import android.graphics.*
+import android.graphics.Canvas
+import android.graphics.Paint
+import android.graphics.RectF
+import android.graphics.Typeface
 import android.util.AttributeSet
 import android.view.View
 import androidx.core.content.withStyledAttributes
@@ -82,9 +85,7 @@ class LoadingButton @JvmOverloads constructor(
             bottom = heightSize.toFloat()
         }
 
-        paint.apply {
-            color = context.getColor(R.color.colorPrimaryDark)
-        }
+        paint.color = backgroundInnerColor
 
         canvas.drawRect(rectBackgroundSpan, paint)
 
@@ -92,14 +93,12 @@ class LoadingButton @JvmOverloads constructor(
         canvas.save()
         canvas.translate(pivotPointX, pivotPointY)
 
-        paint.apply {
-            color = context.getColor(R.color.colorAccent)
-        }
+        paint.color = pieColor
+
         canvas.drawArc(rectCircle, 0f, angle, true, paint)
 
-        paint.apply {
-            color = Color.WHITE
-        }
+        paint.color = textColor
+
         canvas.drawText(text, -PADDING, TEXT_DOWN_SHIFTING, paint)
 
         canvas.restore()
