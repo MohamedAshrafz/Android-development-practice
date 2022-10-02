@@ -8,6 +8,10 @@
                 app:attributeName="progress"
                 app:customFloatValue="0.0" />
         </Constraint>
+
+        <Constraint
+            android:id="@id/radioButton"
+            android:layout_marginStart="0dp" />
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/end">
@@ -16,11 +20,51 @@
                 app:attributeName="progress"
                 app:customFloatValue="1.0" />
         </Constraint>
+
+        <Constraint
+            android:id="@id/radioButton"
+            android:layout_marginStart="40dp" />
     </ConstraintSet>
 
     <Transition
         app:constraintSetEnd="@id/end"
         app:constraintSetStart="@id/start"
-        app:duration="10000">
+        app:duration="300000">
+        <!--        <OnClick-->
+        <!--            app:clickAction="toggle"-->
+        <!--            app:targetId="@id/custom_button" />-->
+        <KeyFrameSet>
+            <KeyAttribute
+                app:framePosition="1"
+                app:motionTarget="@id/custom_button">
+                <CustomAttribute
+                    app:attributeName="progress"
+                    app:customFloatValue="0.6"/>
+            </KeyAttribute>
+        </KeyFrameSet>
     </Transition>
+
+<!--    <ConstraintSet android:id="@+id/radioStart">-->
+<!--        <Constraint-->
+<!--            android:id="@id/radioButton"-->
+<!--            android:scaleX="1"-->
+<!--            android:scaleY="1"/>-->
+
+<!--    </ConstraintSet>-->
+
+<!--    <ConstraintSet android:id="@+id/radioEnd">-->
+<!--        <Constraint-->
+<!--            android:id="@id/radioButton"-->
+<!--            android:scaleX="1.5"-->
+<!--            android:scaleY="1.5"/>-->
+
+<!--    </ConstraintSet>-->
+
+<!--    <Transition-->
+<!--        app:constraintSetStart="@id/radioStart"-->
+<!--        app:constraintSetEnd="@id/radioEnd">-->
+<!--        <OnClick-->
+<!--            app:clickAction="jumpToEnd"-->
+<!--            app:targetId="@id/motion_layout"/>-->
+<!--    </Transition>-->
 </MotionScene>

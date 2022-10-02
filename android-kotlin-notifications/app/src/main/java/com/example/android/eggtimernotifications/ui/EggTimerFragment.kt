@@ -87,7 +87,6 @@ class EggTimerFragment : Fragment() {
                 description = "Time for breakfast"
                 // setSound(null, null)
                 setShowBadge(false)
-
             }
 
             val notificationManager = requireActivity().getSystemService(

@@ -1,12 +1,10 @@
 package com.udacity
 
-import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
 import androidx.core.content.withStyledAttributes
-import kotlin.properties.Delegates
 
 class LoadingButton @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -36,31 +34,28 @@ class LoadingButton @JvmOverloads constructor(
         typeface = Typeface.create("", Typeface.BOLD)
     }
 
-    private val valueAnimator = ValueAnimator()
-
-    private var buttonState: ButtonState by Delegates.observable<ButtonState>(ButtonState.Completed) { p, old, new ->
-
-    }
-
     var progress: Float = 0f
         set(value) {
-            field = value
+            field = if (value == 1.0f) {
+                0f
+            } else {
+                value
+            }
             angle = progress * 360f
             invalidate()
             requestLayout()
         }
-    var text: String = "PlaceHolder"
-        set(value) {
-            field = value
-            invalidate()
-            requestLayout()
+
+    private var text: String = ""
+        get() = when (progress) {
+            0f -> "Download"
+            else -> "We are loading"
         }
     private var angle: Float = 0.0f
 
     private var pieColor = 0
     private var backgroundInnerColor = 0
     private var textColor = 0
-
 
     init {
         isClickable = true
