@@ -35,8 +35,11 @@ class DetailActivity : AppCompatActivity() {
         val okButton = findViewById<Button>(R.id.ok_button)
 
         okButton.setOnClickListener {
-            val intent = Intent(applicationContext, MainActivity::class.java)
-            startActivity(intent)
+//            val intent = Intent(applicationContext, MainActivity::class.java)
+//            startActivity(intent)
+
+            // finish the activity in ok instead of backing to the pre activity without finishing this activity
+            finish()
         }
     }
 
