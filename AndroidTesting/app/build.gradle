@@ -21,10 +21,9 @@ android {
         }
     }
 
-    //dataBinding {
-    //    enabled = true
-    //    enabledForTests = true
-    //}
+    dataBinding {
+        enabledForTests = true
+    }
     buildFeatures {
         dataBinding true
     }
@@ -33,10 +32,24 @@ android {
         jvmTarget = "1.8"
     }
 
+    // Always show the result of every unit test when running via command line, even if it passes.
+    testOptions.unitTests {
+        includeAndroidResources = true
+    }
+
     compileOptions {
             sourceCompatibility JavaVersion.VERSION_1_8
             targetCompatibility JavaVersion.VERSION_1_8
         }
+
+    packagingOptions {
+        exclude 'META-INF/AL2.0'
+        exclude 'META-INF/LGPL2.1'
+    }
+
+//    packagingOptions {
+//        exclude 'META-INF/*'
+//    }
 }
 
 dependencies {
@@ -51,6 +64,7 @@ dependencies {
     implementation "com.jakewharton.timber:timber:$timberVersion"
     implementation "androidx.legacy:legacy-support-v4:$androidXLegacySupport"
     implementation "androidx.room:room-runtime:$roomVersion"
+    implementation 'junit:junit:4.12'
     kapt "androidx.room:room-compiler:$roomVersion"
 
     // Architecture Components
@@ -65,11 +79,43 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
 
     // Dependencies for local unit tests
+    // (Added)
+    testImplementation project(path: ':app')
     testImplementation "junit:junit:$junitVersion"
+    // (Added)
+    testImplementation "org.hamcrest:hamcrest-all:$hamcrestVersion"
+    // (Added)
+    testImplementation "androidx.arch.core:core-testing:$archTestingVersion"
+    // (Added)
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
 
     // AndroidX Test - Instrumented testing
     androidTestImplementation "androidx.test.ext:junit:$androidXTestExtKotlinRunnerVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
+    // (Added in instrumented-testing part)
+    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.1.0'
+
+    // (Added in instrumented-testing part) for mackito library
+    androidTestImplementation "org.mockito:mockito-core:$mockitoVersion"
+    androidTestImplementation "com.linkedin.dexmaker:dexmaker-mockito:$dexMakerVersion"
+
+    // AndroidX Test - JVM testing
+    // (Added)
+    testImplementation "androidx.test:core-ktx:$androidXTestCoreVersion"
+    testImplementation "org.robolectric:robolectric:$robolectricVersion"
+    testImplementation "androidx.test.ext:junit-ktx:$androidXTestExtKotlinRunnerVersion"
+
+    // (Added in instrumented-testing part)
+    androidTestImplementation project(path: ':app')
+    // Dependencies for Android instrumented unit tests
+    androidTestImplementation "junit:junit:$junitVersion"
+    androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
+
+    // Testing code should not be included in the main code.
+    // Once https://issuetracker.google.com/128612536 is fixed this can be fixed.
+
+    implementation "androidx.fragment:fragment-testing:$fragmentVersion"
+    implementation "androidx.test:core:$androidXTestCoreVersion"
 
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
