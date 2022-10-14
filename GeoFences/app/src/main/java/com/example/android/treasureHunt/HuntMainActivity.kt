@@ -62,6 +62,8 @@ class HuntMainActivity : AppCompatActivity() {
 
     private var askingForPermissionCount = 0
 
+    // A PendingIntent for the Broadcast Receiver that handles geofence transitions.
+    // TODO: Step 8 add in a pending intent
     private val geofencePendingIntent: PendingIntent by lazy {
         val intent = Intent(applicationContext, GeofenceBroadcastReceiver::class.java)
         intent.action = ACTION_GEOFENCE_EVENT
@@ -72,9 +74,6 @@ class HuntMainActivity : AppCompatActivity() {
             PendingIntent.FLAG_UPDATE_CURRENT
         )
     }
-
-    // A PendingIntent for the Broadcast Receiver that handles geofence transitions.
-    // TODO: Step 8 add in a pending intent
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -259,7 +258,6 @@ class HuntMainActivity : AppCompatActivity() {
     @TargetApi(29)
     private fun requestForegroundAndBackgroundLocationPermissions() {
         // TODO: Step 4 add code to request foreground and background permissions
-
 
         if (foregroundAndBackgroundLocationPermissionApproved())
             return

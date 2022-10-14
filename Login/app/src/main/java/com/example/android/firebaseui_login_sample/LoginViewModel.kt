@@ -22,6 +22,10 @@ import androidx.lifecycle.map
 import androidx.preference.PreferenceManager
 import kotlin.random.Random
 
+enum class AuthenticationState {
+    AUTHENTICATED, UNAUTHENTICATED, INVALID_AUTHENTICATION
+}
+
 class LoginViewModel : ViewModel() {
 
     companion object {
@@ -40,13 +44,16 @@ class LoginViewModel : ViewModel() {
         )
     }
 
-    enum class AuthenticationState {
-        AUTHENTICATED, UNAUTHENTICATED, INVALID_AUTHENTICATION
-    }
-
     // TODO Create an authenticationState variable based off the FirebaseUserLiveData object. By
     //  creating this variable, other classes will be able to query for whether the user is logged
     //  in or not
+    val authenticationState = FirebaseUserLiveData().map { user ->
+        if (user != null) {
+            AuthenticationState.AUTHENTICATED
+        } else {
+            AuthenticationState.UNAUTHENTICATED
+        }
+    }
 
     /**
      * Gets a fact to display based on the user's set preference of which type of fact they want
@@ -57,8 +64,14 @@ class LoginViewModel : ViewModel() {
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
         val factTypePreferenceKey = context.getString(R.string.preference_fact_type_key)
         val defaultFactType = context.resources.getStringArray(R.array.fact_type)[0]
+
         val funFactType = sharedPreferences.getString(factTypePreferenceKey, defaultFactType)
 
-        return androidFacts[Random.nextInt(0, androidFacts.size)]
+        val facts = when (funFactType) {
+            context.resources.getStringArray(R.array.fact_type)[1] -> californiaFacts
+            else -> androidFacts
+        }
+
+        return facts[Random.nextInt(0, facts.size)]
     }
 }
