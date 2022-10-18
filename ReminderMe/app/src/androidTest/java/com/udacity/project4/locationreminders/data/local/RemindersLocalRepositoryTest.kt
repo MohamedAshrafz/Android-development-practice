@@ -10,9 +10,8 @@ import com.udacity.project4.locationreminders.data.dto.Result
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
-import org.hamcrest.CoreMatchers.`is`
-import org.hamcrest.CoreMatchers.instanceOf
 import org.hamcrest.MatcherAssert.assertThat
+import org.hamcrest.Matchers.*
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -25,6 +24,56 @@ import org.junit.runner.RunWith
 @MediumTest
 class RemindersLocalRepositoryTest {
 
-//    TODO: Add testing implementation to the RemindersLocalRepository.kt
+    private lateinit var database: RemindersDatabase
+    private lateinit var remindersLocalRepository: RemindersLocalRepository
 
+    @get:Rule
+    val instantTaskExecutorRule = InstantTaskExecutorRule()
+
+    // setup the reminder local repository
+    // using in memory database builder because it's for testing
+    @Before
+    fun setup() {
+        database = Room.inMemoryDatabaseBuilder(
+            ApplicationProvider.getApplicationContext(),
+            RemindersDatabase::class.java
+        )
+            .allowMainThreadQueries()
+            .build()
+
+        remindersLocalRepository = RemindersLocalRepository(
+            database.reminderDao(),
+            Dispatchers.Main
+        )
+    }
+
+    @After
+    fun closeDB() = database.close()
+
+    @Test
+    fun saveReminder_retrieveSameReminder() = runBlocking {
+        // making a new reminder to be saved in the database
+        val reminder = ReminderDTO(
+            "reminder1",
+            "this is the first test reminder",
+            "location1",
+            10.7,
+            10.9
+        )
+
+        // GIVEN - a new task is saved to the repository
+        remindersLocalRepository.saveReminder(reminder)
+
+        // WHEN - retrieving the same reminder from the repository
+        val loadedReminder = remindersLocalRepository.getReminder(reminder.id)
+
+        // THEN - same task should be returned
+        assertThat(loadedReminder as Result.Success, not(nullValue()))
+        assertThat(loadedReminder.data.id, `is`(reminder.id))
+        assertThat(loadedReminder.data.title, `is`(reminder.title))
+        assertThat(loadedReminder.data.description, `is`(reminder.description))
+        assertThat(loadedReminder.data.location, `is`(reminder.location))
+        assertThat(loadedReminder.data.latitude, `is`(reminder.latitude))
+        assertThat(loadedReminder.data.longitude, `is`(reminder.longitude))
+    }
 }

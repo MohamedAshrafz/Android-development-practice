@@ -3,6 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Andriod_studio_projects/Udacity_course/ReminderMe/app/src/main/res/layout/activity_authentication.xml" value="0.25416666666666665" />
+        <entry key="..\:/Andriod_studio_projects/Udacity_course/ReminderMe/app/src/main/res/layout/activity_reminder_description.xml" value="0.25416666666666665" />
+        <entry key="..\:/Andriod_studio_projects/Udacity_course/ReminderMe/app/src/main/res/layout/activity_reminders.xml" value="0.25416666666666665" />
+        <entry key="..\:/Andriod_studio_projects/Udacity_course/ReminderMe/app/src/main/res/layout/fragment_reminders.xml" value="0.25416666666666665" />
+        <entry key="..\:/Andriod_studio_projects/Udacity_course/ReminderMe/app/src/main/res/layout/fragment_save_reminder.xml" value="0.25416666666666665" />
+        <entry key="..\:/Andriod_studio_projects/Udacity_course/ReminderMe/app/src/main/res/layout/fragment_select_location.xml" value="0.25416666666666665" />
+        <entry key="..\:/Andriod_studio_projects/Udacity_course/ReminderMe/app/src/main/res/layout/it_reminder.xml" value="0.25416666666666665" />
+        <entry key="..\:/Andriod_studio_projects/Udacity_course/ReminderMe/app/src/main/res/menu/main_menu.xml" value="0.25416666666666665" />
+        <entry key="..\:/Andriod_studio_projects/Udacity_course/ReminderMe/app/src/main/res/menu/map_options.xml" value="0.25416666666666665" />
         <entry key="..\:/Andriod_studio_projects/for the intro to kotlin course/TodoList/starter/app/src/main/res/layout/activity_authentication.xml" value="0.42397914856646396" />
         <entry key="..\:/Andriod_studio_projects/for the intro to kotlin course/TodoList/starter/app/src/main/res/layout/activity_reminder_description.xml" value="0.25416666666666665" />
         <entry key="..\:/Andriod_studio_projects/for the intro to kotlin course/TodoList/starter/app/src/main/res/layout/activity_reminders.xml" value="0.11302083333333333" />

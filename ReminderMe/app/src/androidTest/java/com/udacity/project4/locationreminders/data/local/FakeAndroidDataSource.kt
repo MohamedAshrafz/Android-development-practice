@@ -1,10 +1,11 @@
-package com.udacity.project4.locationreminders.data
+package com.udacity.project4.locationreminders.data.local
 
+import com.udacity.project4.locationreminders.data.ReminderDataSource
 import com.udacity.project4.locationreminders.data.dto.ReminderDTO
 import com.udacity.project4.locationreminders.data.dto.Result
 
 //Use FakeDataSource that acts as a test double to the LocalDataSource(ReminderLocalRepository)
-class FakeDataSource : ReminderDataSource {
+class FakeAndroidDataSource : ReminderDataSource {
 
     // reminders map to save every key with single reminder
     private val remindersMap: LinkedHashMap<String, ReminderDTO> = linkedMapOf()

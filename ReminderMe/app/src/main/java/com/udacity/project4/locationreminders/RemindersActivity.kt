@@ -15,10 +15,14 @@ import kotlinx.android.synthetic.main.activity_reminders.*
  */
 class RemindersActivity : AppCompatActivity() {
 
+    // for saving the state of error_snackbar to dismiss it later when the location is enabled
+    var locationErrorSnackbar: Snackbar? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reminders)
 
+        // showing an indicator that the user is signed in
         if (intent.getStringExtra(AuthenticationActivity.SIGN_IN_SUCCEEDED_EXTRA) != null) {
             Snackbar.make(
                 this.findViewById<View>(android.R.id.content),

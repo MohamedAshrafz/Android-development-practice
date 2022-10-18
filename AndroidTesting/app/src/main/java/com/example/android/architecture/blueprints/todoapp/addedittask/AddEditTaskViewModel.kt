@@ -16,25 +16,32 @@
 
 package com.example.android.architecture.blueprints.todoapp.addedittask
 
-import android.app.Application
 import androidx.lifecycle.*
 import com.example.android.architecture.blueprints.todoapp.Event
 import com.example.android.architecture.blueprints.todoapp.R
-import com.example.android.architecture.blueprints.todoapp.TodoApplication
 import com.example.android.architecture.blueprints.todoapp.data.Result.Success
 import com.example.android.architecture.blueprints.todoapp.data.Task
-import com.example.android.architecture.blueprints.todoapp.data.source.DefaultTasksRepository
-import com.example.android.architecture.blueprints.todoapp.data.source.local.ToDoDatabase
+import com.example.android.architecture.blueprints.todoapp.data.source.TasksRepository
+import com.example.android.architecture.blueprints.todoapp.statistics.StatisticsViewModel
 import kotlinx.coroutines.launch
+
+@Suppress("UNCHECKED_CAST")
+class AddEditTaskViewModelFactory(private val tasksRepository: TasksRepository) :
+    ViewModelProvider.NewInstanceFactory() {
+    // notice that both modelClass and scoreViewModel are converted to java classes
+    // and isAssignableFrom is a java method
+    override fun <T : ViewModel> create(modelClass: Class<T>): T =
+        AddEditTaskViewModel(tasksRepository) as T
+}
 
 /**
  * ViewModel for the Add/Edit screen.
  */
-class AddEditTaskViewModel(application: Application) : AndroidViewModel(application) {
+class AddEditTaskViewModel(private val tasksRepository: TasksRepository) : ViewModel() {
 
     // Note, for testing and architecture purposes, it's bad practice to construct the repository
     // here. We'll show you how to fix this during the codelab
-    private val tasksRepository = (application as TodoApplication).tasksRepository
+    // private val tasksRepository = (application as TodoApplication).tasksRepository
 
     // Two-way databinding, exposing MutableLiveData
     val title = MutableLiveData<String>()

@@ -70,35 +70,43 @@ class SaveReminderFragment : BaseFragment() {
         }
 
         binding.saveReminder.setOnClickListener {
+
+            // getting the data ready for saving and starting the geofencing
             val title = _viewModel.reminderTitle.value
             val description = _viewModel.reminderDescription.value
             val location = _viewModel.reminderSelectedLocationStr.value
             val latitude = _viewModel.latitude.value
             val longitude = _viewModel.longitude.value
 
-            if (title.isNullOrEmpty() || description.isNullOrEmpty() ||
-                location.isNullOrEmpty() || latitude == null || longitude == null
-            ) {
-                _viewModel.showToast.postValue("Please enter the title, description and specify a POI")
+            if (title.isNullOrEmpty() || description.isNullOrEmpty() || location.isNullOrEmpty()) {
+                _viewModel.showSnackBar.postValue(getString(R.string.error_no_data))
                 return@setOnClickListener
             }
-
-            // TODO: use the user entered reminder details to:
-            //  1) add a geofencing request
-            //  2) save the reminder to the local db
-
+            // making a new reminder with the data
             val newReminder = ReminderDataItem(title, description, location, latitude, longitude)
-
+            // clearing the view model to allow adding a new reminder
+            _viewModel.onClear()
+            // saving the newReminder to the database using the method in viewModel
             _viewModel.validateAndSaveReminder(
                 newReminder
             )
 
+            // if there is no latitude or longitude save the reminder in the data base
+            // but do not add a geofencing (return)
+            if (latitude == null || longitude == null) {
+                _viewModel.showSnackBar.postValue(getString(R.string.reminder_saved))
+                return@setOnClickListener
+            }
+
+            // adding the geofencing to be reminded on location
             addNewGeofencing(newReminder)
         }
     }
 
+    // helper function to add the new geofencing
     private fun addNewGeofencing(reminder: ReminderDataItem) {
 
+        // building the geofencing with the given latitude and longitude
         val geofence = Geofence.Builder()
             .setRequestId(reminder.id)
             .setCircularRegion(
@@ -106,15 +114,19 @@ class SaveReminderFragment : BaseFragment() {
                 reminder.longitude as Double,
                 GeofencingConstants.GEOFENCE_RADIUS_IN_METERS
             )
+            // Expires after and hour
             .setExpirationDuration(GeofencingConstants.GEOFENCE_EXPIRATION_IN_MILLISECONDS)
+            // triggering on entering
             .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER)
             .build()
 
+        // building the request
         val geofencingRequest = GeofencingRequest.Builder()
             .setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER)
             .addGeofence(geofence)
             .build()
 
+        // add geofencing only if the location permission granted
         if (ActivityCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
@@ -122,19 +134,9 @@ class SaveReminderFragment : BaseFragment() {
         ) {
             geofencingClient.addGeofences(geofencingRequest, geofencePendingIntent)?.run {
                 addOnCompleteListener {
-//                    this@SaveReminderFragment.view?.let { it1 ->
-//                        Snackbar.make(
-//                            it1,
-//                            getString(R.string.reminder_saved_and_geofencing_added),
-//                            Snackbar.LENGTH_LONG
-//                        ).show()
-//                    }
                     _viewModel.showSnackBar.postValue(getString(R.string.reminder_saved_and_geofencing_added))
-                    _viewModel.navigationCommand.postValue(NavigationCommand.Back)
                 }
-
             }
-
         }
     }
 

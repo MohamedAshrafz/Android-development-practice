@@ -1,5 +1,6 @@
 package com.example.android.architecture.blueprints.todoapp.data.source
 
+import com.example.android.architecture.blueprints.todoapp.MainCoroutineRule
 import com.example.android.architecture.blueprints.todoapp.data.Result
 import com.example.android.architecture.blueprints.todoapp.data.Task
 import kotlinx.coroutines.Dispatchers
@@ -8,6 +9,7 @@ import kotlinx.coroutines.test.runBlockingTest
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.core.IsEqual
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 
 @ExperimentalCoroutinesApi
@@ -26,6 +28,9 @@ class DefaultTasksRepositoryTest {
     // Class under testing
     private lateinit var defaultTasksRepository: DefaultTasksRepository
 
+    @get:Rule
+    val mainCoroutineRule = MainCoroutineRule()
+
     @Before
     fun createRepository() {
         tasksRemoteDataSource = FakeDataSource(remoteTasks.toMutableList())
@@ -36,12 +41,12 @@ class DefaultTasksRepositoryTest {
             // TODO Dispatchers.Unconfined should be replaced with Dispatchers.Main
             //  this requires understanding more about coroutines + testing
             //  so we will keep this as Unconfined for now.
-            Dispatchers.Unconfined
+            Dispatchers.Main
         )
     }
 
     @Test
-    fun getTasks_requestAllTasksFromRemoteDataSource() = runBlockingTest {
+    fun getTasks_requestAllTasksFromRemoteDataSource() = mainCoroutineRule.runBlockingTest {
         val tasks = defaultTasksRepository.getTasks(true) as Result.Success
 
         assertThat(tasks.data, IsEqual(remoteTasks))

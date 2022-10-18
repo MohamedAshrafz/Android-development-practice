@@ -28,7 +28,7 @@ class GeofenceTransitionsJobIntentService : JobIntentService(), CoroutineScope {
         private const val JOB_ID = 573
         private const val TAG = "GeofenceTransitions"
 
-        // TODO: call this to start the JobIntentService to handle the geofencing transition events
+        // calling this to start the JobIntentService to handle the geofencing transition events
         fun enqueueWork(context: Context, intent: Intent) {
             enqueueWork(
                 context,
@@ -41,7 +41,6 @@ class GeofenceTransitionsJobIntentService : JobIntentService(), CoroutineScope {
 
     override fun onHandleWork(intent: Intent) {
 
-        // TODO: handle the geofencing transition events and
         // send a notification to the user when he enters the geofence area
 
         val geofencingEvent = GeofencingEvent.fromIntent(intent)
@@ -55,7 +54,7 @@ class GeofenceTransitionsJobIntentService : JobIntentService(), CoroutineScope {
 
         if (geofencingEvent.geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER) {
             Log.v(TAG, this.getString(R.string.geofence_entered))
-            // TODO call @sendNotification
+            // call @sendNotification
             sendNotification(geofencingEvent.triggeringGeofences)
         }
     }
@@ -66,7 +65,7 @@ class GeofenceTransitionsJobIntentService : JobIntentService(), CoroutineScope {
         // get the first geofence to handle
         val currentGeofencingReminder = triggeringGeofences[0]
 
-        // TODO: get the request id of the current geofence
+        // get the request id of the current geofence
         val requestId = currentGeofencingReminder.requestId
 
         // remove the geofence with the given requestId before handling it
@@ -82,7 +81,7 @@ class GeofenceTransitionsJobIntentService : JobIntentService(), CoroutineScope {
 
         //Get the local repository instance
         val remindersLocalRepository: ReminderDataSource by inject()
-//        Interaction to the repository has to be through a coroutine scope
+        // Interaction to the repository has to be through a coroutine scope
         CoroutineScope(coroutineContext).launch(SupervisorJob()) {
             //get the reminder with the request id
             val result = remindersLocalRepository.getReminder(requestId)

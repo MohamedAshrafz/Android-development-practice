@@ -1,7 +1,9 @@
 package com.udacity.project4.utils
 
 import android.view.View
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import androidx.databinding.InverseBindingAdapter
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.udacity.project4.base.BaseRecyclerViewAdapter
@@ -42,6 +44,18 @@ object BindingAdapters {
                 if (view.visibility == View.VISIBLE)
                     view.fadeOut()
             }
+        }
+    }
+
+    @BindingAdapter("stringDoubleLiveData")
+    @JvmStatic
+    fun setMyView(view: TextView, value: Double) {
+        if (value.toString() == "0.0") {
+            view.text = ""
+            return
+        }
+        if (view.text != value.toString()) {
+            view.text = value.toString()
         }
     }
 }

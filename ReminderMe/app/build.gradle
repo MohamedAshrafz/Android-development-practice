@@ -31,6 +31,7 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    // for testing idling resources
     testOptions.unitTests {
         includeAndroidResources = true
         returnDefaultValues = true
@@ -115,6 +116,7 @@ dependencies {
     androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
     androidTestImplementation "androidx.test:rules:$androidXTestRulesVersion"
     androidTestImplementation "androidx.room:room-testing:$roomVersion"
+    // (Added) InstantTaskExecutor Rule
     androidTestImplementation "androidx.arch.core:core-testing:$archTestingVersion"
     androidTestImplementation "org.robolectric:annotations:$robolectricVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"

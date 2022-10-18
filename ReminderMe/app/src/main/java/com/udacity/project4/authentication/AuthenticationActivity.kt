@@ -31,22 +31,18 @@ class AuthenticationActivity : AppCompatActivity() {
         binding = ActivityAuthenticationBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
-//         TODO: Implement the create account and sign in using FirebaseUI, use sign in using email and sign in using Google
 
+        // Implement the create account and sign in using FirebaseUI, use sign in using email and sign in using Google
         binding.loginButton.setOnClickListener { launchSignupFlow() }
 
-//          TODO: If the user was authenticated, send him to RemindersActivity
+        // If the user was authenticated, send him to RemindersActivity
         if (FirebaseAuth.getInstance().currentUser != null) {
             sentToRemindersActivity()
         }
-
-//          TODO: a bonus is to customize the sign in flow to look nice using :
-        //https://github.com/firebase/FirebaseUI-Android/blob/master/auth/README.md#custom-layout
-//        onBackPressedDispatcher.addCallback {
-//            finishAffinity()
-//        }
     }
 
+    // sending the the user to the reminder list activity and setting an extra to indicate
+    // that he is signed in the first time the app launches this activity only
     private fun sentToRemindersActivity() {
         val startReminderListIntent =
             Intent(applicationContext, RemindersActivity::class.java).putExtra(

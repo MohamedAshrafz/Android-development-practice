@@ -47,6 +47,11 @@ android {
         exclude 'META-INF/LGPL2.1'
     }
 
+    // for espresso idling resources
+    testOptions.unitTests {
+        includeAndroidResources = true
+        returnDefaultValues = true
+    }
 //    packagingOptions {
 //        exclude 'META-INF/*'
 //    }
@@ -84,7 +89,7 @@ dependencies {
     testImplementation "junit:junit:$junitVersion"
     // (Added)
     testImplementation "org.hamcrest:hamcrest-all:$hamcrestVersion"
-    // (Added)
+    // (Added) InstantTaskExecutor Rule
     testImplementation "androidx.arch.core:core-testing:$archTestingVersion"
     // (Added)
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
@@ -110,6 +115,8 @@ dependencies {
     // Dependencies for Android instrumented unit tests
     androidTestImplementation "junit:junit:$junitVersion"
     androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
+    // Added instant executor rule for android test
+    androidTestImplementation "androidx.arch.core:core-testing:$archTestingVersion"
 
     // Testing code should not be included in the main code.
     // Once https://issuetracker.google.com/128612536 is fixed this can be fixed.
@@ -120,4 +127,7 @@ dependencies {
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
     implementation "androidx.fragment:fragment-ktx:$fragmentKtxVersion"
+
+    // for idling resources
+    implementation "androidx.test.espresso:espresso-idling-resource:$espressoVersion"
 }

@@ -3,6 +3,7 @@ package com.udacity.project4.locationreminders.geofence
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import com.udacity.project4.locationreminders.savereminder.SaveReminderFragment.Companion.ACTION_GEOFENCE_EVENT
 
 /**
@@ -18,8 +19,9 @@ import com.udacity.project4.locationreminders.savereminder.SaveReminderFragment.
 class GeofenceBroadcastReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
-        //TODO: implement the onReceive method to receive the geofencing events at the background
+        // implementing the onReceive method to receive the geofencing events at the background
         if (intent.action == ACTION_GEOFENCE_EVENT) {
+            // use jop intent service to make the geofencing work correctly in the background
             GeofenceTransitionsJobIntentService.enqueueWork(context, intent)
         }
     }

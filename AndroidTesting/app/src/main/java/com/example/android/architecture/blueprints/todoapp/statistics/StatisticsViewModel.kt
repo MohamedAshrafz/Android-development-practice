@@ -17,6 +17,7 @@
 package com.example.android.architecture.blueprints.todoapp.statistics
 
 import android.app.Application
+import android.view.View
 import androidx.lifecycle.*
 import com.example.android.architecture.blueprints.todoapp.TodoApplication
 import com.example.android.architecture.blueprints.todoapp.data.Result
@@ -24,16 +25,27 @@ import com.example.android.architecture.blueprints.todoapp.data.Result.Error
 import com.example.android.architecture.blueprints.todoapp.data.Result.Success
 import com.example.android.architecture.blueprints.todoapp.data.Task
 import com.example.android.architecture.blueprints.todoapp.data.source.DefaultTasksRepository
+import com.example.android.architecture.blueprints.todoapp.data.source.TasksRepository
+import com.example.android.architecture.blueprints.todoapp.taskdetail.TaskDetailViewModel
 import kotlinx.coroutines.launch
+
+@Suppress("UNCHECKED_CAST")
+class StatisticsViewModelFactory(private val tasksRepository: TasksRepository) :
+    ViewModelProvider.NewInstanceFactory() {
+    // notice that both modelClass and scoreViewModel are converted to java classes
+    // and isAssignableFrom is a java method
+    override fun <T : ViewModel> create(modelClass: Class<T>): T =
+        StatisticsViewModel(tasksRepository) as T
+}
 
 /**
  * ViewModel for the statistics screen.
  */
-class StatisticsViewModel(application: Application) : AndroidViewModel(application) {
+class StatisticsViewModel(private val tasksRepository: TasksRepository) : ViewModel() {
 
     // Note, for testing and architecture purposes, it's bad practice to construct the repository
     // here. We'll show you how to fix this during the codelab
-    private val tasksRepository = (application as TodoApplication).tasksRepository
+    // private val tasksRepository = (application as TodoApplication).tasksRepository
 
     private val tasks: LiveData<Result<List<Task>>> = tasksRepository.observeTasks()
     private val _dataLoading = MutableLiveData<Boolean>(false)

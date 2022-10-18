@@ -25,13 +25,13 @@ class RemindersListViewModel(
     /**
     * live data to hold the authentication state of the user
     */
-    val authState: LiveData<AuthenticationState> = FirebaseUserLiveData().map { firebaseUser ->
-        if (firebaseUser != null) {
-            AuthenticationState.AUTHENTICATED
-        } else {
-            AuthenticationState.UNAUTHENTICATED
-        }
-    }
+//    val authState: LiveData<AuthenticationState> = FirebaseUserLiveData().map { firebaseUser ->
+//        if (firebaseUser != null) {
+//            AuthenticationState.AUTHENTICATED
+//        } else {
+//            AuthenticationState.UNAUTHENTICATED
+//        }
+//    }
 
     /**
      * Get all the reminders from the DataSource and add them to the remindersList to be shown on the UI,

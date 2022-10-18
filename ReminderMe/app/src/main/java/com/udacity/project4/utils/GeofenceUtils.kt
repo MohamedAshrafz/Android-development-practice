@@ -22,6 +22,8 @@ import com.google.android.gms.maps.model.LatLng
 import com.udacity.project4.R
 import java.util.concurrent.TimeUnit
 
+// Token from the lesson
+
 /**
  * Returns the error string for a geofencing error code.
  */

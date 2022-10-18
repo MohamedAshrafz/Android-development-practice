@@ -3,11 +3,9 @@ package com.udacity.project4.locationreminders.reminderslist
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
-import androidx.activity.addCallback
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.firebase.ui.auth.AuthUI
-import com.google.android.material.snackbar.Snackbar
 import com.udacity.project4.R
 import com.udacity.project4.authentication.AuthenticationActivity
 import com.udacity.project4.base.BaseFragment
@@ -39,19 +37,6 @@ class ReminderListFragment : BaseFragment() {
 
         binding.refreshLayout.setOnRefreshListener { _viewModel.loadReminders() }
 
-        _viewModel.authState.observe(viewLifecycleOwner, Observer { state ->
-            if (state == AuthenticationState.UNAUTHENTICATED) {
-                val authenticationActivityIntent =
-                    Intent(requireContext().applicationContext, AuthenticationActivity::class.java)
-                startActivity(authenticationActivityIntent)
-                requireActivity().finish()
-            }
-        })
-
-//        requireActivity().onBackPressedDispatcher.addCallback {
-//            requireActivity().finishAffinity()
-//        }
-
         return binding.root
     }
 
@@ -62,16 +47,27 @@ class ReminderListFragment : BaseFragment() {
         binding.addReminderFAB.setOnClickListener {
             navigateToAddReminder()
         }
+
+        // set the value of isRefreshing depending on the value of showLoading LiveData
+        _viewModel.showLoading.observe(viewLifecycleOwner, Observer { state ->
+            binding.refreshLayout.isRefreshing = state
+        })
+
+        // implementing the refresh layout refresh method
+        // first if the tried to refresh reload the data
+        binding.refreshLayout.setOnRefreshListener {
+            _viewModel.loadReminders()
+        }
     }
 
     override fun onResume() {
         super.onResume()
-        //load the reminders list on the ui
+        // load the reminders list on the ui
         _viewModel.loadReminders()
     }
 
     private fun navigateToAddReminder() {
-        //use the navigationCommand live data to navigate between the fragments
+        // use the navigationCommand live data to navigate between the fragments
         _viewModel.navigationCommand.postValue(
             NavigationCommand.To(
                 ReminderListFragmentDirections.toSaveReminder()
@@ -83,15 +79,29 @@ class ReminderListFragment : BaseFragment() {
         val adapter = RemindersListAdapter {
         }
 
-//        setup the recycler view using the extension function
+        // setup the recycler view using the extension function
         binding.reminderssRecyclerView.setup(adapter)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.logout -> {
-//                TODO: add the logout implementation
-                AuthUI.getInstance().signOut(requireContext())
+                // logout implementation
+                // signing-out the current user
+                // we have to wait till sing-out complete
+                // otherwise AuthenticationActivity will launch this activity again
+                AuthUI.getInstance().signOut(requireContext()).addOnSuccessListener {
+                    // finishing the current activity
+                    requireActivity().finish()
+
+                    // launch the sign-in activity
+                    val authenticationActivityIntent =
+                        Intent(
+                            requireContext().applicationContext,
+                            AuthenticationActivity::class.java
+                        )
+                    startActivity(authenticationActivityIntent)
+                }
             }
         }
         return super.onOptionsItemSelected(item)
