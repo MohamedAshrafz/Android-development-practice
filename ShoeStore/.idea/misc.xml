@@ -4,7 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Andriod_studio_projects/Udacity_course/ShoeStore/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
+        <entry key="..\:/Andriod_studio_projects/Udacity_course/ShoeStore/app/src/main/res/layout/detail_fragment.xml" value="0.25416666666666665" />
         <entry key="..\:/Andriod_studio_projects/Udacity_course/ShoeStore/app/src/main/res/layout/login_fragment.xml" value="0.25416666666666665" />
+        <entry key="..\:/Andriod_studio_projects/Udacity_course/ShoeStore/app/src/main/res/layout/shoe_view.xml" value="0.25416666666666665" />
         <entry key="..\:/Andriod_studio_projects/nd940-android-kotlin-course1-starter/starter/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2265" />
         <entry key="..\:/Andriod_studio_projects/nd940-android-kotlin-course1-starter/starter/app/src/main/res/drawable/baseline_logout_24.xml" value="0.2535" />
         <entry key="..\:/Andriod_studio_projects/nd940-android-kotlin-course1-starter/starter/app/src/main/res/drawable/ic_add.xml" value="0.2265" />

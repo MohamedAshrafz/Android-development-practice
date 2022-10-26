@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <!--Data item that holds the reminder details-->
+        <variable
+            name="reminderDataItem"
+            type="com.udacity.project4.locationreminders.reminderslist.ReminderDataItem" />
+        <variable
+            name="latitude"
+            type="Double" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        tools:context=".locationreminders.ReminderDescriptionActivity">
+
+        <TextView
+            android:id="@+id/title_textView"
+            style="@style/desctription_text_style"
+            android:text="@{@string/title_format(reminderDataItem.title)}" />
+
+        <TextView
+            android:id="@+id/description_textView"
+            style="@style/desctription_text_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{@string/description_format(reminderDataItem.description)}" />
+
+        <TextView
+            android:id="@+id/location_textView"
+            style="@style/desctription_text_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{@string/location_format(reminderDataItem.location)}" />
+
+        <TextView
+            android:id="@+id/latitude_textView"
+            style="@style/desctription_text_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{@string/latitude_format(reminderDataItem.latitude)}" />
+
+        <TextView
+            android:id="@+id/longitude_textView"
+            style="@style/desctription_text_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{@string/longitude_format(reminderDataItem.longitude)}" />
+    </LinearLayout>
+</layout>
