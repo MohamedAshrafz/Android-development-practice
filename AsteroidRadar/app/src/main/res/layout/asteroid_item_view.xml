@@ -9,17 +9,17 @@
             name="asteroidItem"
             type="com.udacity.asteroidradar.Asteroid" />
 
-        <variable
-            name="clickListener"
-            type="com.udacity.asteroidradar.main.AsteroidRecyclerViewAdaptor.AsteroidItemClickListener" />
+<!--        <variable-->
+<!--            name="clickListener"-->
+<!--            type="com.udacity.asteroidradar.main.AsteroidRecyclerViewAdaptor.AsteroidItemClickListener" />-->
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/item_constraintView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="@{() -> clickListener.onClick(asteroidItem)}"
         tools:background="@color/app_background">
+<!--        android:onClick="@{() -> clickListener.onClick(asteroidItem)}"-->
 
         <TextView
             android:id="@+id/codeName_textView"

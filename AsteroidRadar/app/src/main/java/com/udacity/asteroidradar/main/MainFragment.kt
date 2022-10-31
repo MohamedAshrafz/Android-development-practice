@@ -28,9 +28,9 @@ class MainFragment : Fragment() {
         binding.lifecycleOwner = this
 
         val adaptor =
-            AsteroidRecyclerViewAdaptor(AsteroidRecyclerViewAdaptor.AsteroidItemClickListener { asteroid ->
+            AsteroidRecyclerViewAdaptor{ asteroid ->
                 viewModel.onSelectAsteroid(asteroid)
-            })
+            }
 
         binding.asteroidsRecyclerView.adapter = adaptor
 
