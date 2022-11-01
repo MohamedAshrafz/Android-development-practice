@@ -142,9 +142,11 @@ class SaveReminderFragment : BaseFragment() {
         ) {
             geofencingClient.addGeofences(geofencingRequest, geofencePendingIntent)?.run {
                 addOnCompleteListener {
-                    _viewModel.validateAndSaveReminder(reminder)
-                    _viewModel.onClear()
-                    _viewModel.showSnackBar.postValue(getString(R.string.reminder_saved_and_geofencing_added))
+                    if (it.isSuccessful) {
+                        _viewModel.validateAndSaveReminder(reminder)
+                        _viewModel.onClear()
+                        _viewModel.showSnackBar.postValue(getString(R.string.reminder_saved_and_geofencing_added))
+                    }
                 }
             }
         }
@@ -233,8 +235,6 @@ class SaveReminderFragment : BaseFragment() {
                 // making a new reminder with the data
                 val newReminder =
                     ReminderDataItem(title, description, location, latitude, longitude)
-                // clearing the view model to allow adding a new reminder
-                _viewModel.onClear()
                 // adding the geofencing
                 addNewGeofencing(newReminder)
             }
@@ -300,12 +300,11 @@ class SaveReminderFragment : BaseFragment() {
                 // making a new reminder with the data
                 val newReminder =
                     ReminderDataItem(title, description, location, latitude, longitude)
-                // clearing the view model to allow adding a new reminder
-                _viewModel.onClear()
                 // adding the geofencing
                 addNewGeofencing(newReminder)
+            } else {
+                checkDeviceLocationSettings(false)
             }
-            checkDeviceLocationSettings(false)
         }
     }
 
